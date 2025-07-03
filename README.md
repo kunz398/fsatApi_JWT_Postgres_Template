@@ -182,11 +182,96 @@ Authorization: Bearer <access_token>
 ```
 ## 📸 Postman Examples
 
-### Get Token
+### Step 1: Get an Access Token
+
+**Request Details:**
+- **Method:** `POST`
+- **URL:** `http://localhost:8000/api/auth/login`
+- **Headers:**
+  ```
+  Content-Type: application/x-www-form-urlencoded
+  ```
+- **Body (x-www-form-urlencoded):**
+  ```
+  username=your_username
+  password=your_password
+  ```
+
+**Example Response:**
+```json
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "token_type": "bearer"
+}
+```
+
+**Screenshot:**
+
 ![Get Token Example](test_template_code/assets/img_get_tokken.png)
 
-### Get Item (with token)
+---
+
+### Step 2: Retrieve All Items
+
+**Request Details:**
+- **Method:** `GET`
+- **URL:** `http://localhost:8000/api/items/`
+- **Headers:**
+  ```
+  Authorization: Bearer YOUR_ACCESS_TOKEN_HERE
+  Content-Type: application/json
+  ```
+
+**Example with actual token:**
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlciIsInR5cGUiOiJhY2Nlc3MiLCJleHAiOjE3MzQ5MjE2MDB9.example
+```
+
+**Expected Response:**
+```json
+[
+    {
+        "id": 1,
+        "title": "Sample Item 1",
+        "description": "This is a sample item description",
+        "owner_id": 1,
+        "created_at": "2024-01-15T10:30:00",
+        "updated_at": "2024-01-15T10:30:00"
+    },
+    {
+        "id": 2,
+        "title": "Sample Item 2", 
+        "description": "Another sample item",
+        "owner_id": 1,
+        "created_at": "2024-01-15T11:00:00",
+        "updated_at": "2024-01-15T11:00:00"
+    }
+]
+```
+
+**Screenshot:**
+
 ![Get Item Example](test_template_code/assets/img_get_item.png)
+
+---
+
+### 📝 Quick Setup in Postman
+
+1. **Create a new request**
+2. **Set the method** to `GET`
+3. **Enter the URL:** `http://localhost:8000/api/items/`
+4. **Add Authorization header:**
+   - Key: `Authorization`
+   - Value: `Bearer YOUR_ACCESS_TOKEN_HERE`
+5. **Click Send**
+
+### 🔧 Pro Tips
+
+- **Environment Variables:** Create a Postman environment with:
+  - `base_url`: `http://localhost:8000`
+  - `access_token`: Your JWT token
+- **Use:** `{{base_url}}/api/items/` as URL
+- **Use:** `Bearer {{access_token}}` in Authorization header
 
 
 ## 📊 Logging
