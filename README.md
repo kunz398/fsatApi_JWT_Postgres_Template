@@ -294,7 +294,7 @@ tail -f logs/error.log
 tail -f logs/*.log
 ```
 
-## 🏗 Project Structure
+## Project Structure
 
 ```
 fsatApi_JWT_Postgres_Template/
