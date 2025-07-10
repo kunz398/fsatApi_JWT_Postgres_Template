@@ -4,11 +4,13 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "${PORT:-8000}:${PORT:-8000}"
     env_file:
       - .env
     environment:
       - POSTGRES_SERVER=db
+      - PORT=${PORT:-8000}
+      - HOST=${HOST:-0.0.0.0}
     depends_on:
       - db
     volumes:

@@ -3,6 +3,8 @@ FROM python:3.11-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
+ENV PORT=8000
+ENV HOST=0.0.0.0
 
 # Set work directory
 WORKDIR /app
@@ -24,7 +26,7 @@ COPY . .
 RUN mkdir -p logs
 
 # Expose port
-EXPOSE 8000
+EXPOSE ${PORT}
 
 # Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"] 
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT}"] 

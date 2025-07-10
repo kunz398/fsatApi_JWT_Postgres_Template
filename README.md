@@ -50,6 +50,10 @@ POSTGRES_DB=your_database
 POSTGRES_SERVER=localhost
 POSTGRES_PORT=5432
 
+# Application Configuration
+PORT=8000
+HOST=0.0.0.0
+
 # JWT Configuration
 SECRET_KEY=your_super_secret_key_here
 ACCESS_TOKEN_EXPIRE_MINUTES=30
@@ -94,12 +98,24 @@ WCnYpmP6DfcKLwO_GrDCO7sX1I6In9iKDMbIIY5ukG0
 python main.py
 ```
 
+### Port Configuration
+
+The application port can be configured by setting the `PORT` environment variable in your `.env` file:
+
+```env
+PORT=8000  # Default port
+```
+
+You can change this to any available port (e.g., `PORT=3000`, `PORT=8080`).
+
 ## 📚 API Documentation
 
 Once running, visit:
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
-- **Health Check**: http://localhost:8000/health
+- **Swagger UI**: http://localhost:${PORT}/docs
+- **ReDoc**: http://localhost:${PORT}/redoc
+- **Health Check**: http://localhost:${PORT}/health
+
+**Note**: Replace `${PORT}` with your configured port number.
 
 ## 🔐 Authentication Endpoints
 
@@ -186,7 +202,7 @@ Authorization: Bearer <access_token>
 
 **Request Details:**
 - **Method:** `POST`
-- **URL:** `http://localhost:8000/api/auth/login`
+- **URL:** `http://localhost:${PORT}/api/auth/login`
 - **Headers:**
   ```
   Content-Type: application/x-www-form-urlencoded
@@ -215,7 +231,7 @@ Authorization: Bearer <access_token>
 
 **Request Details:**
 - **Method:** `GET`
-- **URL:** `http://localhost:8000/api/items/`
+- **URL:** `http://localhost:${PORT}/api/items/`
 - **Headers:**
   ```
   Authorization: Bearer YOUR_ACCESS_TOKEN_HERE
@@ -259,7 +275,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlc
 
 1. **Create a new request**
 2. **Set the method** to `GET`
-3. **Enter the URL:** `http://localhost:8000/api/items/`
+3. **Enter the URL:** `http://localhost:${PORT}/api/items/`
 4. **Add Authorization header:**
    - Key: `Authorization`
    - Value: `Bearer YOUR_ACCESS_TOKEN_HERE`
@@ -268,7 +284,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlc
 ### 🔧 Pro Tips
 
 - **Environment Variables:** Create a Postman environment with:
-  - `base_url`: `http://localhost:8000`
+  - `base_url`: `http://localhost:${PORT}`
   - `access_token`: Your JWT token
 - **Use:** `{{base_url}}/api/items/` as URL
 - **Use:** `Bearer {{access_token}}` in Authorization header
@@ -357,9 +373,9 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
-EXPOSE 8000
+EXPOSE ${PORT}
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT}"]
 ```
 ------------------------
 ------------------------
@@ -381,7 +397,7 @@ A console-based testing application for the FastAPI JWT template. This standalon
 ## 📋 Prerequisites
 
 - Python 3.8+
-- FastAPI application running (default: http://localhost:8000)
+- FastAPI application running (default: http://localhost:${PORT})
 - PostgreSQL database with sample data (optional)
 
 ## 🛠️ Installation
@@ -495,7 +511,7 @@ Interactive mode provides a command-line interface for manual testing:
 ```
 🚀 FastAPI JWT Template - Console Testing Application
 ============================================================
-Enter API base URL (default: http://localhost:8000): 
+Enter API base URL (default: http://localhost:${PORT}): 
 
 ============================================================
  TEST MENU
@@ -517,7 +533,7 @@ Select an option (0-10): 1
 ============================================================
  FASTAPI JWT TEMPLATE - COMPREHENSIVE TEST SUITE
 ============================================================
-Testing API at: http://localhost:8000
+Testing API at: http://localhost:${PORT}
 Timestamp: 2024-03-07 10:30:00
 
 ============================================================
@@ -557,7 +573,7 @@ python test_api.py
 
 ### Environment Variables
 The application uses the following defaults:
-- **API URL**: http://localhost:8000
+- **API URL**: http://localhost:${PORT}
 - **Timeout**: 30 seconds per request
 
 ## 🐛 Troubleshooting
@@ -614,7 +630,7 @@ The `test_template_code` directory contains standalone testing utilities designe
 ============================================================
  FastAPI JWT Template - Console Testing Application
 ============================================================
-Enter API base URL (default: http://localhost:8000) ↵
+Enter API base URL (default: http://localhost:${PORT}) ↵
 
 ============================================================
 🔓 Not authenticated - Please login or register first
